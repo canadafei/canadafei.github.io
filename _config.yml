@@ -1,0 +1,10 @@
+title: "加拿大甘鹏飞的个人网站"
+description: "加拿大生活 · 随笔 · 摄影"
+author: "甘鹏飞"
+
+theme: minima
+
+lang: zh-CN
+
+header_pages:
+  - about.md
