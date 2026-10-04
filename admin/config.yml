@@ -2,9 +2,6 @@ backend:
   name: github
   repo: canadafei/canadafei.github.io
   branch: main
-  base_url: https://decap-turbo.netlify.app
-  auth_endpoint: 81991617-86d5-4b92-b2bc-9814807ee2d6
-
 
 media_folder: "images"
 public_folder: "/images"
