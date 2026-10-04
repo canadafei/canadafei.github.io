@@ -7,4 +7,6 @@ theme: minima
 lang: zh-CN
 
 header_pages:
+  - album.md
   - about.md
+
