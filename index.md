@@ -24,18 +24,10 @@ layout: default
   margin-bottom: 18px;
 }
 
-.post-content {
+.post-excerpt {
   font-size: 17px;
   line-height: 1.9;
-}
-
-.post-content img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-  margin: 8px 0;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  margin-bottom: 20px;
 }
 
 .post-photos {
@@ -51,6 +43,7 @@ layout: default
   object-fit: cover;
   border-radius: 8px;
   cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
   transition: transform 0.2s;
 }
 
@@ -60,7 +53,7 @@ layout: default
 
 .read-more {
   display: inline-block;
-  margin-top: 15px;
+  margin-top: 10px;
   font-weight: bold;
   text-decoration: none;
 }
@@ -96,7 +89,7 @@ layout: default
 }
 
 @media (max-width: 600px) {
-  .post-content {
+  .post-excerpt {
     font-size: 16px;
   }
 
@@ -130,17 +123,35 @@ layout: default
 {{ post.date | date: "%Y年%m月%d日" }}
 </div>
 
-<div class="post-content">
+<div class="post-excerpt">
+{{ post.content | strip_html | strip_newlines | truncate: 500 }}
+</div>
 
-{{ post.content }}
+{% assign image_parts = post.content | split: '<img' %}
+
+{% if image_parts.size > 1 %}
+
+<div class="post-photos">
+
+{% for image_part in image_parts offset:1 limit:4 %}
+
+{% assign image_src = image_part | split: 'src="' | last | split: '"' | first %}
+
+{% if image_src != "" %}
+
+<img src="{{ image_src }}" alt="{{ post.title }}">
+
+{% endif %}
+
+{% endfor %}
 
 </div>
 
-<p>
+{% endif %}
+
 <a class="read-more" href="{{ post.url | relative_url }}">
 阅读全文 →
 </a>
-</p>
 
 </article>
 
@@ -154,7 +165,7 @@ layout: default
 <script>
 document.addEventListener("DOMContentLoaded", function() {
 
-  const images = document.querySelectorAll(".post-content img");
+  const images = document.querySelectorAll(".post-photos img");
 
   images.forEach(function(img) {
     img.addEventListener("click", function() {
