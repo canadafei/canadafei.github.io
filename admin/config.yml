@@ -1,0 +1,28 @@
+backend:
+  name: github
+  repo: canadafei/canadafei.github.io
+  branch: main
+
+media_folder: "images"
+public_folder: "/images"
+
+site_url: https://canadafei.github.io
+
+collections:
+  - name: "posts"
+    label: "文章"
+    folder: "_posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - label: "标题"
+        name: "title"
+        widget: "string"
+
+      - label: "日期"
+        name: "date"
+        widget: "datetime"
+
+      - label: "正文"
+        name: "body"
+        widget: "markdown"
