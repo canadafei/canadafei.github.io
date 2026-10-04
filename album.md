@@ -6,22 +6,35 @@ permalink: /album/
 
 # 📷 我的相册
 
-这里记录生活中的一些照片。
+记录生活，保存记忆。
 
----
+<style>
+.photo-wall {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+  margin-top: 30px;
+}
+
+.photo-wall img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+}
+
+.photo-wall img:hover {
+  transform: scale(1.02);
+  transition: 0.2s;
+}
+</style>
 
 ## 🍁 加拿大生活
 
-以后这里放加拿大的生活照片。
+<div class="photo-wall">
 
----
+<img src="/images/autumn.jpg" alt="加拿大秋天">
 
-## ✈️ 旅行
-
-以后这里放旅行照片。
-
----
-
-## 🌿 日常
-
-以后这里放日常生活照片。
+</div>
