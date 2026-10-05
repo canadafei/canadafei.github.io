@@ -58,6 +58,33 @@ layout: default
   text-decoration: none;
 }
 
+
+/* =========================
+   我的图片集按钮
+========================= */
+
+.album-button {
+  display: inline-block;
+  margin: 10px 0 45px 0;
+  padding: 11px 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  color: inherit;
+  text-decoration: none;
+  font-size: 16px;
+  transition: all 0.2s;
+}
+
+.album-button:hover {
+  background: #f5f5f5;
+  border-color: #ccc;
+}
+
+
+/* =========================
+   图片放大
+========================= */
+
 .photo-lightbox {
   display: none;
   position: fixed;
@@ -88,7 +115,13 @@ layout: default
   cursor: pointer;
 }
 
+
+/* =========================
+   手机
+========================= */
+
 @media (max-width: 600px) {
+
   .post-excerpt {
     font-size: 16px;
   }
@@ -100,8 +133,16 @@ layout: default
   .post-photos img {
     height: auto;
   }
+
+  .album-button {
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
 }
 </style>
+
 
 # 我的生活记录
 
@@ -109,83 +150,169 @@ layout: default
 
 这里记录生活、旅行、照片和一些随想。
 
+
+<!-- 我的图片集 -->
+
+<a
+  class="album-button"
+  href="{{ '/album.html' | relative_url }}">
+  我的图片集 →
+</a>
+
+
 ---
+
+## 文章
+
 
 {% for post in site.posts %}
 
 <article class="home-post">
 
-<h2>
-<a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-</h2>
+  <h2>
+    <a href="{{ post.url | relative_url }}">
+      {{ post.title }}
+    </a>
+  </h2>
 
-<div class="post-date">
-{{ post.date | date: "%Y年%m月%d日" }}
-</div>
 
-<div class="post-excerpt">
-{{ post.content | strip_html | strip_newlines | truncate: 500 }}
-</div>
+  <div class="post-date">
+    {{ post.date | date: "%Y年%m月%d日" }}
+  </div>
 
-{% assign image_parts = post.content | split: '<img' %}
 
-{% if image_parts.size > 1 %}
+  <div class="post-excerpt">
+    {{ post.content | strip_html | strip_newlines | truncate: 500 }}
+  </div>
 
-<div class="post-photos">
 
-{% for image_part in image_parts offset:1 limit:4 %}
+  {% assign image_parts = post.content | split: '<img' %}
 
-{% assign image_src = image_part | split: 'src="' | last | split: '"' | first %}
+  {% if image_parts.size > 1 %}
 
-{% if image_src != "" %}
+  <div class="post-photos">
 
-<img src="{{ image_src }}" alt="{{ post.title }}">
+    {% for image_part in image_parts offset:1 limit:4 %}
 
-{% endif %}
+      {% assign image_src = image_part
+        | split: 'src="'
+        | last
+        | split: '"'
+        | first %}
 
-{% endfor %}
+      {% if image_src != "" %}
 
-</div>
+        <img
+          src="{{ image_src }}"
+          alt="{{ post.title }}"
+          loading="lazy">
 
-{% endif %}
+      {% endif %}
 
-<a class="read-more" href="{{ post.url | relative_url }}">
-阅读全文 →
-</a>
+    {% endfor %}
+
+  </div>
+
+  {% endif %}
+
+
+  <a
+    class="read-more"
+    href="{{ post.url | relative_url }}">
+    阅读全文 →
+  </a>
 
 </article>
 
 {% endfor %}
 
-<div class="photo-lightbox" id="photoLightbox">
-  <span class="photo-lightbox-close" onclick="closePhoto()">×</span>
-  <img id="lightboxImage" src="" alt="">
+
+<!-- =========================
+     图片放大
+========================= -->
+
+<div
+  class="photo-lightbox"
+  id="photoLightbox">
+
+  <span
+    class="photo-lightbox-close"
+    onclick="closePhoto()">
+    ×
+  </span>
+
+  <img
+    id="lightboxImage"
+    src=""
+    alt="">
+
 </div>
 
+
 <script>
+
 document.addEventListener("DOMContentLoaded", function() {
 
   const images = document.querySelectorAll(".post-photos img");
 
+  const lightbox = document.getElementById("photoLightbox");
+
+  const lightboxImage =
+    document.getElementById("lightboxImage");
+
+
   images.forEach(function(img) {
+
     img.addEventListener("click", function() {
-      document.getElementById("lightboxImage").src = this.src;
-      document.getElementById("photoLightbox").style.display = "flex";
+
+      lightboxImage.src = this.src;
+
+      lightbox.style.display = "flex";
+
     });
+
   });
 
 });
 
+
 function closePhoto() {
+
   document.getElementById("photoLightbox").style.display = "none";
+
+  document.getElementById("lightboxImage").src = "";
+
 }
 
-document.getElementById("photoLightbox").addEventListener("click", function(e) {
-  if (e.target === this) {
-    closePhoto();
+
+document.getElementById("photoLightbox").addEventListener(
+  "click",
+  function(e) {
+
+    if (e.target === this) {
+
+      closePhoto();
+
+    }
+
   }
+);
+
+
+/* ESC 关闭图片 */
+
+document.addEventListener("keydown", function(e) {
+
+  if (e.key === "Escape") {
+
+    closePhoto();
+
+  }
+
 });
+
 </script>
+
 
 ---
 
