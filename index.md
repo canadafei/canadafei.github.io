@@ -95,10 +95,4 @@ layout: default
 
 <script> document.addEventListener("DOMContentLoaded", function() { const images = document.querySelectorAll(".post-photos img"); const lightbox = document.getElementById("photoLightbox"); const lightboxImage = document.getElementById("lightboxImage"); images.forEach(function(img) { img.addEventListener("click", function() { lightboxImage.src = this.src; lightbox.style.display = "flex"; }); }); }); function closePhoto() { document.getElementById("photoLightbox").style.display = "none"; document.getElementById("lightboxImage").src = ""; } document.getElementById("photoLightbox").addEventListener( "click", function(e) { if (e.target === this) { closePhoto(); } } ); /* ESC 关闭图片 */ document.addEventListener("keydown", function(e) { if (e.key === "Escape") { closePhoto(); } }); </script>
 
-关于我
 
-一个生活在加拿大的普通人。
-
-喜欢记录生活，也喜欢保存一些值得回忆的东西。
-
-欢迎常来看看。
