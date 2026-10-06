@@ -28,27 +28,3 @@ collections:
       - label: "正文"
         name: "body"
         widget: "markdown"
-
-         - name: "albums"
-
-         
-    label: "图片集"
-    folder: "_albums"
-    create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    fields:
-      - label: "标题"
-        name: "title"
-        widget: "string"
-
-      - label: "发布时间"
-        name: "date"
-        widget: "datetime"
-
-      - label: "图片"
-        name: "images"
-        widget: "list"
-        field:
-          label: "图片"
-          name: "image"
-          widget: "image"
