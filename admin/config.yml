@@ -21,3 +21,24 @@ collections:
       - name: body
         label: 正文
         widget: markdown
+ - name: "albums"
+    label: "图片集"
+    folder: "_albums"
+    create: true
+    fields:
+      - label: "标题"
+        name: "title"
+        widget: "string"
+
+      - label: "日期"
+        name: "date"
+        widget: "datetime"
+
+      - label: "照片"
+        name: "images"
+        widget: "list"
+        fields:
+          - label: "图片"
+            name: "image"
+            widget: "image"
+        
