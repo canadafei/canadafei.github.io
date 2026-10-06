@@ -2,9 +2,12 @@ backend:
   name: turbo-github
   turbo_site_id: 81991617-86d5-4b92-b2bc-9814807ee2d6
   branch: main
+
 media_folder: images
 public_folder: /images
+
 site_url: https://canadafei.github.io
+
 collections:
   - name: posts
     label: 文章
@@ -15,30 +18,33 @@ collections:
       - name: title
         label: 标题
         widget: string
+
       - name: date
         label: 日期
         widget: datetime
+
       - name: body
         label: 正文
         widget: markdown
- - name: "albums"
-    label: "图片集"
-    folder: "_albums"
+
+  - name: albums
+    label: 图片集
+    folder: _albums
     create: true
     fields:
-      - label: "标题"
-        name: "title"
-        widget: "string"
+      - label: 标题
+        name: title
+        widget: string
 
-      - label: "日期"
-        name: "date"
-        widget: "datetime"
+      - label: 日期
+        name: date
+        widget: datetime
 
-      - label: "照片"
-        name: "images"
-        widget: "list"
+      - label: 照片
+        name: images
+        widget: list
         fields:
-          - label: "图片"
-            name: "image"
-            widget: "image"
-        
+          - label: 图片
+            name: image
+            widget: image
+你原来的错误
