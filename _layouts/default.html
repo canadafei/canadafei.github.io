@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'zh-CN' }}">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>
+    {% if page.title %}
+      {{ page.title }} | {{ site.title }}
+    {% else %}
+      {{ site.title }}
+    {% endif %}
+  </title>
+
+  {% if site.description %}
+  <meta name="description" content="{{ site.description | escape }}">
+  {% endif %}
+
+  {% if site.author %}
+  <meta name="author" content="{{ site.author | escape }}">
+  {% endif %}
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 16px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "Microsoft YaHei",
+        "PingFang SC",
+        Arial,
+        sans-serif;
+      color: #222;
+      background: #fff;
+      line-height: 1.8;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .site-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 25px;
+    }
+
+    /* =========================
+       顶部
+       ========================= */
+
+    .site-header {
+      border-bottom: 1px solid #e5e5e5;
+      padding: 25px 0;
+      margin-bottom: 45px;
+    }
+
+    .site-header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .site-title {
+      font-size: 24px;
+      font-weight: 600;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .site-nav {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .site-nav a {
+      text-decoration: none;
+      font-size: 15px;
+      color: #555;
+    }
+
+    .site-nav a:hover {
+      color: #000;
+    }
+
+    /* =========================
+       正文
+       ========================= */
+
+    .page-content {
+      min-height: 500px;
+    }
+
+    .page-content img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* =========================
+       页脚
+       ========================= */
+
+    .site-footer {
+      margin-top: 80px;
+      padding: 30px 0 45px 0;
+      border-top: 1px solid #e5e5e5;
+      color: #888;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    /* =========================
+       手机
+       ========================= */
+
+    @media (max-width: 600px) {
+
+      .site-container {
+        padding: 0 18px;
+      }
+
+      .site-header {
+        padding: 20px 0;
+        margin-bottom: 30px;
+      }
+
+      .site-header-inner {
+        display: block;
+      }
+
+      .site-title {
+        display: block;
+        margin-bottom: 12px;
+        font-size: 21px;
+      }
+
+      .site-nav {
+        gap: 18px;
+        flex-wrap: wrap;
+      }
+
+      .site-nav a {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="site-header">
+
+  <div class="site-container">
+
+    <div class="site-header-inner">
+
+      <a class="site-title" href="{{ '/' | relative_url }}">
+        {{ site.title }}
+      </a>
+
+      <nav class="site-nav">
+
+        <a href="{{ '/' | relative_url }}">
+          首页
+        </a>
+
+        {% for path in site.header_pages %}
+
+          {% assign my_page = site.pages | where: "path", path | first %}
+
+          {% if my_page %}
+          <a href="{{ my_page.url | relative_url }}">
+            {{ my_page.title }}
+          </a>
+          {% endif %}
+
+        {% endfor %}
+
+      </nav>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<main class="page-content">
+
+  <div class="site-container">
+
+    {{ content }}
+
+  </div>
+
+</main>
+
+
+<footer class="site-footer">
+
+  <div class="site-container">
+
+    © {{ site.time | date: "%Y" }}
+    {{ site.title }}
+
+  </div>
+
+</footer>
+
+</body>
+</html>
