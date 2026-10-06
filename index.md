@@ -8,18 +8,23 @@ layout: default
 这里记录生活、旅行、照片和一些随想。
 
 
-
-<!-- ========================= 文章列表 ========================= -->
-
-{% for post in paginator.posts %}
+{% for post in site.posts limit:10 %}
 
 <article class="home-post">
 
-<h2> <a href="{{ post.url | relative_url }}"> {{ post.title }} </a> </h2>
+<h2>
+<a href="{{ post.url | relative_url }}">
+{{ post.title }}
+</a>
+</h2>
 
-<div class="post-date"> {{ post.date | date: "%Y年%m月%d日" }} </div>
+<div class="post-date">
+{{ post.date | date: "%Y年%m月%d日" }}
+</div>
 
-<div class="post-excerpt"> {{ post.content | strip_html | strip_newlines | truncate: 100 }} </div>
+<div class="post-excerpt">
+{{ post.content | strip_html | strip_newlines | truncate: 100 }}
+</div>
 
 {% assign image_parts = post.content | split: '<img' %}
 
@@ -29,20 +34,20 @@ layout: default
 
 {% for image_part in image_parts offset:1 limit:1 %}
 
-  {% assign image_src = image_part
-    | split: 'src="'
-    | last
-    | split: '"'
-    | first %}
+{% assign image_src = image_part
+| split: 'src="'
+| last
+| split: '"'
+| first %}
 
-  {% if image_src != "" %}
+{% if image_src != "" %}
 
-    <img
-      src="{{ image_src }}"
-      alt="{{ post.title }}"
-      loading="lazy">
+<img
+src="{{ image_src }}"
+alt="{{ post.title }}"
+loading="lazy">
 
-  {% endif %}
+{% endif %}
 
 {% endfor %}
 
@@ -57,7 +62,6 @@ layout: default
 </article>
 
 {% endfor %}
-
 <!-- ========================= 分页 ========================= -->
 
 {% if paginator.total_pages > 1 %}
