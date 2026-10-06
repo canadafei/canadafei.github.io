@@ -9,4 +9,13 @@ lang: zh-CN
 header_pages:
   - album.md
   - about.md
+collections:
+  albums:
+    output: true
 
+defaults:
+  - scope:
+      path: ""
+      type: "albums"
+    values:
+      layout: default
