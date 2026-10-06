@@ -19,3 +19,8 @@ defaults:
       type: "albums"
     values:
       layout: default
+paginate: 10
+paginate_path: "/page:num/"
+
+plugins:
+  - jekyll-paginate
