@@ -9,11 +9,13 @@ public_folder: /images
 site_url: https://canadafei.github.io
 
 collections:
+
   - name: posts
     label: 文章
     folder: _posts
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+
     fields:
       - name: title
         label: 标题
@@ -27,24 +29,26 @@ collections:
         label: 正文
         widget: markdown
 
+
   - name: albums
     label: 图片集
     folder: _albums
     create: true
+
     fields:
-      - label: 标题
-        name: title
+      - name: title
+        label: 标题
         widget: string
 
-      - label: 日期
-        name: date
+      - name: date
+        label: 日期
         widget: datetime
 
-      - label: 照片
-        name: images
+      - name: images
+        label: 照片
         widget: list
+
         fields:
-          - label: 图片
-            name: image
+          - name: image
+            label: 图片
             widget: image
-你原来的错误
