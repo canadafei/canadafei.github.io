@@ -2,12 +2,9 @@ backend:
   name: turbo-github
   turbo_site_id: 81991617-86d5-4b92-b2bc-9814807ee2d6
   branch: main
-
 media_folder: images
 public_folder: /images
-
 site_url: https://canadafei.github.io
-
 collections:
   - name: posts
     label: 文章
