@@ -170,7 +170,7 @@ layout: default
 
 
   <div class="post-excerpt">
-    {{ post.content | strip_html | strip_newlines | truncate: 500 }}
+    {{ post.content | strip_html | strip_newlines | truncate: 100 }}
   </div>
 
 
@@ -180,7 +180,7 @@ layout: default
 
   <div class="post-photos">
 
-    {% for image_part in image_parts offset:1 limit:4 %}
+    {% for image_part in image_parts offset:1 limit:1 %}
 
       {% assign image_src = image_part
         | split: 'src="'
