@@ -9,46 +9,44 @@ public_folder: /images
 site_url: https://canadafei.github.io
 
 collections:
-
   - name: posts
-    label: 文章
+    label: Posts
     folder: _posts
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
 
     fields:
       - name: title
-        label: 标题
+        label: Title
         widget: string
 
       - name: date
-        label: 日期
+        label: Date
         widget: datetime
 
       - name: body
-        label: 正文
+        label: Body
         widget: markdown
 
-
   - name: albums
-    label: 图片集
+    label: Albums
     folder: _albums
     create: true
 
     fields:
       - name: title
-        label: 标题
+        label: Title
         widget: string
 
       - name: date
-        label: 日期
+        label: Date
         widget: datetime
 
       - name: images
-        label: 照片
+        label: Photos
         widget: list
 
         fields:
           - name: image
-            label: 图片
+            label: Image
             widget: image
