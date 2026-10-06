@@ -148,18 +148,9 @@ layout: default
 这里记录生活、旅行、照片和一些随想。
 
 
-<!-- 我的图片集 -->
-
-<a
-  class="album-button"
-  href="{{ '/album.html' | relative_url }}">
-  我的图片集 →
-</a>
 
 
 ---
-
-## 文章
 
 
 {% for post in site.posts %}
