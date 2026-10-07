@@ -1,8 +1,3 @@
----
-
-layout: page
-title: "关于我"
-------------
 
 <div class="about-page">
 
