@@ -4,7 +4,51 @@ layout: default
 
 <div class="home">
 
-  <h1 class="page-heading">最新文章</h1>
+  <section class="profile-hero">
+
+    <div class="profile-avatar">
+      <img
+        src="{{ '/images/avatar.jpg' | relative_url }}"
+        alt="自由飞翔"
+      >
+    </div>
+
+    <div class="profile-content">
+
+      <div class="profile-name">
+        自由飞翔
+      </div>
+
+      <div class="profile-tagline">
+        加拿大生活 · 随笔 · 摄影
+      </div>
+
+      <p class="profile-intro">
+        生活在加拿大，喜欢记录生活，也喜欢用照片保存那些值得回忆的瞬间。
+        这里没有刻意经营的喧闹，只有生活、旅行、风景、文字，以及一些真实的个人感受。
+      </p>
+
+      <div class="profile-links">
+
+        <a href="{{ '/album.html' | relative_url }}">
+          我的相册
+        </a>
+
+        <a href="{{ '/about.html' | relative_url }}">
+          关于我
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <div class="section-heading">
+    <h1>最新文章</h1>
+    <span>记录生活，保存时间</span>
+  </div>
 
   <div class="post-list">
 
