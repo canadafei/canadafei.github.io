@@ -4,73 +4,38 @@ layout: default
 
 <div class="home">
 
-  <section class="profile-hero">
+  <section class="latest-section">
 
-    <div class="profile-avatar">
-      <img
-        src="{{ '/images/avatar.jpg' | relative_url }}"
-        alt="自由飞翔"
-      >
+    <div class="section-title">
+      <h1>最新文章</h1>
+      <p>记录生活，也记录时间</p>
     </div>
 
-    <div class="profile-content">
 
-      <div class="profile-name">
-        自由飞翔
-      </div>
+    <div class="post-list">
 
-      <div class="profile-tagline">
-        加拿大生活 · 随笔 · 摄影
-      </div>
+      {% for post in paginator.posts %}
 
-      <p class="profile-intro">
-        生活在加拿大，喜欢记录生活，也喜欢用照片保存那些值得回忆的瞬间。
-        这里没有刻意经营的喧闹，只有生活、旅行、风景、文字，以及一些真实的个人感受。
-      </p>
-
-      <div class="profile-links">
-
-        <a href="{{ '/album.html' | relative_url }}">
-          我的相册
-        </a>
-
-        <a href="{{ '/about.html' | relative_url }}">
-          关于我
-        </a>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <div class="section-heading">
-    <h1>最新文章</h1>
-    <span>记录生活，保存时间</span>
-  </div>
-
-  <div class="post-list">
-
-    {% for post in paginator.posts %}
-
-      <article class="post-card">
-
-        <div class="post-info">
+        <article class="post-card">
 
           <!-- 标题 -->
+
           <h2 class="post-title">
             <a href="{{ post.url | relative_url }}">
               {{ post.title }}
             </a>
           </h2>
 
-          <!-- 日期 -->
+
+          <!-- 时间 -->
+
           <div class="post-date">
             {{ post.date | date: "%Y-%m-%d" }}
           </div>
 
-          <!-- 摘要 -->
+
+          <!-- 文章摘要 -->
+
           {% assign excerpt_text = post.content
             | strip_html
             | replace: '&nbsp;', ' '
@@ -80,94 +45,99 @@ layout: default
           %}
 
           <div class="post-excerpt">
-
-            {% if excerpt_text.size >= 100 %}
-              {{ excerpt_text | truncate: 180 }}
-            {% else %}
-              {{ excerpt_text }}
-            {% endif %}
-
+            {{ excerpt_text | truncate: 180 }}
           </div>
 
-          <!-- 阅读全文 -->
-          <a href="{{ post.url | relative_url }}" class="read-more">
-            阅读全文 →
-          </a>
 
-        </div>
+          <!-- 第一张图片 -->
 
+          {% assign first_image = post.content | split: '<img' %}
 
-        <!-- 第一张图片 -->
-        {% assign first_image = post.content | split: '<img' %}
+          {% if first_image.size > 1 %}
 
-        {% if first_image.size > 1 %}
+            {% assign image_part = first_image[1] | split: 'src="' %}
 
-          {% assign image_part = first_image[1] | split: 'src="' %}
+            {% if image_part.size > 1 %}
 
-          {% if image_part.size > 1 %}
+              {% assign image_url = image_part[1] | split: '"' | first %}
 
-            {% assign image_url = image_part[1] | split: '"' | first %}
-
-            <a
-              href="{{ post.url | relative_url }}"
-              class="post-image"
-            >
-              <img
-                src="{{ image_url }}"
-                alt="{{ post.title }}"
-                loading="lazy"
-                decoding="async"
+              <a
+                href="{{ post.url | relative_url }}"
+                class="post-image-link"
               >
-            </a>
+                <img
+                  src="{{ image_url }}"
+                  alt="{{ post.title }}"
+                  class="post-image"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </a>
+
+            {% endif %}
 
           {% endif %}
 
+
+          <!-- 阅读全文 -->
+
+          <div class="post-footer">
+
+            <a
+              href="{{ post.url | relative_url }}"
+              class="read-more"
+            >
+              阅读全文 →
+            </a>
+
+          </div>
+
+        </article>
+
+      {% endfor %}
+
+    </div>
+
+
+    <!-- 分页 -->
+
+    {% if paginator.total_pages > 1 %}
+
+      <nav class="pagination" aria-label="文章分页">
+
+        {% if paginator.previous_page %}
+
+          <a
+            href="{{ paginator.previous_page_path | relative_url }}"
+            class="pagination-button"
+          >
+            ← 上一页
+          </a>
+
         {% endif %}
 
-      </article>
 
-    {% endfor %}
-
-  </div>
-
-
-  <!-- 分页 -->
-
-  {% if paginator.total_pages > 1 %}
-
-    <nav class="pagination" aria-label="文章分页">
-
-      {% if paginator.previous_page %}
-
-        <a
-          href="{{ paginator.previous_page_path | relative_url }}"
-          class="pagination-button"
-        >
-          ← 上一页
-        </a>
-
-      {% endif %}
+        <span class="pagination-current">
+          第 {{ paginator.page }} / {{ paginator.total_pages }} 页
+        </span>
 
 
-      <span class="pagination-info">
-        第 {{ paginator.page }} / {{ paginator.total_pages }} 页
-      </span>
+        {% if paginator.next_page %}
 
+          <a
+            href="{{ paginator.next_page_path | relative_url }}"
+            class="pagination-button"
+          >
+            下一页 →
+          </a>
 
-      {% if paginator.next_page %}
+        {% endif %}
 
-        <a
-          href="{{ paginator.next_page_path | relative_url }}"
-          class="pagination-button"
-        >
-          下一页 →
-        </a>
+      </nav>
 
-      {% endif %}
+    {% endif %}
 
-    </nav>
-
-  {% endif %}
+  </section>
 
 </div>
 
@@ -175,136 +145,42 @@ layout: default
 <style>
 
 /* =========================
-   首页整体
+   首页文章区域
    ========================= */
 
 .home {
-  max-width: 1100px;
-  margin: 0 auto;
+  width: 100%;
 }
 
-.page-heading {
-  margin-bottom: 35px;
+
+.latest-section {
+  width: 100%;
 }
 
-/* =========================
-   个人自媒体头部
-   ========================= */
 
-.profile-hero {
-  display: flex;
-  align-items: center;
+.section-title {
+  margin-bottom: 30px;
 
-  gap: 28px;
-
-  margin: 10px 0 55px;
-  padding: 32px 0 35px;
+  padding-bottom: 16px;
 
   border-bottom: 1px solid #e5e5e5;
 }
 
-.profile-avatar {
-  flex: 0 0 105px;
 
-  width: 105px;
-  height: 105px;
-
-  overflow: hidden;
-
-  border-radius: 50%;
-
-  background: #f1f1f1;
-
-  box-shadow:
-    0 3px 12px rgba(0, 0, 0, 0.12);
-}
-
-.profile-avatar img {
-  display: block;
-
-  width: 100%;
-  height: 100%;
-
-  object-fit: cover;
-}
-
-.profile-content {
-  flex: 1;
-}
-
-.profile-name {
-  margin-bottom: 4px;
-
-  font-size: 30px;
-  font-weight: 700;
-
-  line-height: 1.3;
-
-  color: #222;
-}
-
-.profile-tagline {
-  margin-bottom: 12px;
-
-  font-size: 15px;
-
-  color: #777;
-
-  letter-spacing: 0.5px;
-}
-
-.profile-intro {
-  max-width: 720px;
-
-  margin: 0 0 17px;
-
-  color: #555;
-
-  font-size: 15px;
-
-  line-height: 1.8;
-}
-
-.profile-links {
-  display: flex;
-
-  gap: 20px;
-}
-
-.profile-links a {
-  font-size: 14px;
-
-  text-decoration: none;
-}
-
-.profile-links a:hover {
-  text-decoration: underline;
-}
-
-
-/* =========================
-   最新文章标题
-   ========================= */
-
-.section-heading {
-  display: flex;
-
-  align-items: baseline;
-
-  gap: 15px;
-
-  margin-bottom: 28px;
-}
-
-.section-heading h1 {
+.section-title h1 {
   margin: 0;
 
-  font-size: 26px;
+  font-size: 27px;
 
   font-weight: 600;
+
+  line-height: 1.4;
 }
 
-.section-heading span {
+
+.section-title p {
+  margin: 6px 0 0;
+
   color: #999;
 
   font-size: 13px;
@@ -312,134 +188,58 @@ layout: default
 
 
 /* =========================
-   手机
+   文章
    ========================= */
-
-@media screen and (max-width: 600px) {
-
-  .profile-hero {
-    align-items: flex-start;
-
-    gap: 17px;
-
-    margin: 5px 0 38px;
-    padding: 25px 0 28px;
-  }
-
-  .profile-avatar {
-    flex: 0 0 78px;
-
-    width: 78px;
-    height: 78px;
-  }
-
-  .profile-name {
-    font-size: 24px;
-  }
-
-  .profile-tagline {
-    font-size: 13px;
-
-    margin-bottom: 8px;
-  }
-
-  .profile-intro {
-    margin-bottom: 12px;
-
-    font-size: 14px;
-
-    line-height: 1.7;
-  }
-
-  .profile-links {
-    gap: 15px;
-  }
-
-  .profile-links a {
-    font-size: 13px;
-  }
-
-  .section-heading {
-    display: block;
-
-    margin-bottom: 22px;
-  }
-
-  .section-heading h1 {
-    font-size: 23px;
-
-    margin-bottom: 4px;
-  }
-
-}
-/* =========================
-   文章卡片
-   ========================= */
-
-.post-list {
-  width: 100%;
-}
 
 .post-card {
-  display: flex;
-  flex-direction: column;
+  margin-bottom: 42px;
 
-  padding: 0 0 38px 0;
-  margin: 0 0 38px 0;
+  padding-bottom: 42px;
 
   border-bottom: 1px solid #e5e5e5;
 }
 
 
-/* =========================
-   标题
-   ========================= */
-
 .post-title {
-  margin: 0 0 8px 0;
+  margin: 0 0 8px;
 
-  font-size: 27px;
-  line-height: 1.45;
+  font-size: 26px;
+
+  line-height: 1.5;
+
   font-weight: 600;
 }
 
+
 .post-title a {
   color: #222;
+
   text-decoration: none;
 }
+
 
 .post-title a:hover {
   text-decoration: underline;
 }
 
 
-/* =========================
-   日期
-   ========================= */
-
 .post-date {
-  margin-bottom: 16px;
+  margin-bottom: 15px;
 
-  color: #888;
+  color: #999;
 
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: 13px;
 }
 
 
-/* =========================
-   摘要
-   ========================= */
-
 .post-excerpt {
-  max-width: 900px;
-
-  margin-bottom: 15px;
+  margin-bottom: 18px;
 
   color: #555;
 
   font-size: 16px;
-  line-height: 1.85;
+
+  line-height: 1.9;
 }
 
 
@@ -447,35 +247,37 @@ layout: default
    第一张图片
    ========================= */
 
-.post-image {
+.post-image-link {
   display: block;
 
   width: 100%;
-  max-width: 100%;
 
-  margin-top: 18px;
+  margin-top: 12px;
 
   overflow: hidden;
 
   border-radius: 8px;
 
-  background: #f2f2f2;
+  background: #f3f3f3;
 }
 
-.post-image img {
+
+.post-image {
   display: block;
 
   width: 100%;
+
   height: auto;
 
-  max-height: 520px;
+  max-height: 560px;
 
   object-fit: cover;
 
-  transition: transform 0.25s ease;
+  transition: transform .25s ease;
 }
 
-.post-image:hover img {
+
+.post-image-link:hover .post-image {
   transform: scale(1.015);
 }
 
@@ -484,17 +286,23 @@ layout: default
    阅读全文
    ========================= */
 
-.read-more {
-  display: inline-block;
+.post-footer {
+  margin-top: 15px;
+}
 
-  margin-top: 2px;
+
+.read-more {
+  color: #555;
 
   font-size: 14px;
 
   text-decoration: none;
 }
 
+
 .read-more:hover {
+  color: #000;
+
   text-decoration: underline;
 }
 
@@ -507,63 +315,47 @@ layout: default
   display: flex;
 
   align-items: center;
+
   justify-content: center;
 
   gap: 25px;
 
-  margin: 50px 0 30px;
+  margin: 48px 0 35px;
+
   padding-top: 28px;
 
   border-top: 1px solid #e5e5e5;
 }
+
 
 .pagination-button {
   display: inline-block;
 
   padding: 7px 15px;
 
+  color: #444;
+
   border: 1px solid #ddd;
+
   border-radius: 5px;
 
-  text-decoration: none;
-
   font-size: 14px;
+
+  text-decoration: none;
 }
+
 
 .pagination-button:hover {
-  background: #f5f5f5;
+  background: #f6f6f6;
+
+  border-color: #ccc;
 }
 
-.pagination-info {
+
+.pagination-current {
   color: #777;
 
   font-size: 14px;
-}
-
-
-/* =========================
-   平板
-   ========================= */
-
-@media screen and (max-width: 800px) {
-
-  .home {
-    width: 100%;
-  }
-
-  .post-title {
-    font-size: 24px;
-  }
-
-  .post-excerpt {
-    font-size: 15px;
-    line-height: 1.8;
-  }
-
-  .post-image img {
-    max-height: 450px;
-  }
-
 }
 
 
@@ -573,18 +365,25 @@ layout: default
 
 @media screen and (max-width: 600px) {
 
-  .home {
-    width: 100%;
+  .section-title {
+    margin-bottom: 24px;
   }
 
-  .page-heading {
-    margin-bottom: 25px;
+
+  .section-title h1 {
+    font-size: 23px;
+  }
+
+
+  .section-title p {
+    font-size: 12px;
   }
 
 
   .post-card {
-    padding-bottom: 28px;
-    margin-bottom: 28px;
+    margin-bottom: 30px;
+
+    padding-bottom: 30px;
   }
 
 
@@ -592,6 +391,7 @@ layout: default
     margin-bottom: 7px;
 
     font-size: 21px;
+
     line-height: 1.5;
   }
 
@@ -599,27 +399,29 @@ layout: default
   .post-date {
     margin-bottom: 12px;
 
-    font-size: 13px;
+    font-size: 12px;
   }
 
 
   .post-excerpt {
-    margin-bottom: 13px;
+    margin-bottom: 14px;
 
     font-size: 15px;
-    line-height: 1.8;
+
+    line-height: 1.85;
   }
 
 
-  .post-image {
-    margin-top: 16px;
+  .post-image-link {
+    margin-top: 12px;
 
     border-radius: 6px;
   }
 
 
-  .post-image img {
+  .post-image {
     width: 100%;
+
     height: auto;
 
     max-height: none;
@@ -628,16 +430,10 @@ layout: default
   }
 
 
-  .read-more {
-    font-size: 14px;
-  }
-
-
   .pagination {
     gap: 12px;
 
     margin-top: 35px;
-    padding-top: 22px;
   }
 
 
@@ -648,7 +444,7 @@ layout: default
   }
 
 
-  .pagination-info {
+  .pagination-current {
     font-size: 13px;
   }
 
