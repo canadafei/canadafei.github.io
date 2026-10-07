@@ -11,7 +11,6 @@
 
   <div class="about-content">
 
-```
 <p class="about-lead">
   来到加拿大以后，我越来越喜欢去了解脚下这片土地。
 </p>
@@ -112,7 +111,6 @@
     在加拿大生活，在北美行走
   </div>
 </div>
-```
 
   </div>
 
