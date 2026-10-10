@@ -1,13 +1,26 @@
 
 <div class="about-page">
 
-  <header class="about-hero">
-    <div class="about-label">ABOUT ME</div>
-    <h1>关于我</h1>
-    <p class="about-subtitle">
-      在加拿大生活，在北美行走，用文字记录所见，用照片留下时间。
-    </p>
-  </header>
+
+<header class="about-hero">
+
+  <img
+    src="{{ '/images/avatar.jpg' | relative_url }}"
+    alt="自由飞翔个人头像"
+    class="about-avatar"
+    width="420"
+   
+  >
+
+  <div class="about-label">ABOUT ME</div>
+
+  <h1>关于我</h1>
+
+  <p class="about-subtitle">
+    在加拿大生活，在北美行走，用文字记录所见，用照片留下时间。
+  </p>
+
+</header>
 
   <div class="about-content">
 
@@ -389,4 +402,43 @@
 
 }
 
+
+  
+/* ========================================
+   个人头像
+======================================== */
+
+.about-avatar {
+  display: block;
+  width: 400px;
+
+  margin: 0 auto 24px;
+
+  object-fit: cover;
+  object-position: center;
+
+  border-radius: 50%;
+  border: 4px solid #fff;
+  outline: 1px solid #e8e8e8;
+
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+}
+
+/* 手机头像 */
+
+@media screen and (max-width: 700px) {
+  .about-avatar {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .about-avatar {
+    width: 88px;
+    height: 88px;
+    margin-bottom: 18px;
+  }
+}
 </style>
