@@ -1,15 +1,14 @@
 
 <div class="about-page">
 
-
 <header class="about-hero">
 
   <img
     src="{{ '/images/avatar.jpg' | relative_url }}"
     alt="自由飞翔个人头像"
     class="about-avatar"
-    width="420"
-   
+    width="120"
+    height="120"
   >
 
   <div class="about-label">ABOUT ME</div>
