@@ -7,8 +7,8 @@
     src="{{ '/images/avatar.jpg' | relative_url }}"
     alt="自由飞翔个人头像"
     class="about-avatar"
-    width="120"
-    height="120">
+    width="220"
+    height="220">
 
   <div class="about-label">ABOUT ME</div>
 
@@ -408,8 +408,8 @@
 
 .about-avatar {
   display: block;
-  width: 400px;
-
+  width: 220px;
+  height: 220px;
   margin: 0 auto 24px;
 
   object-fit: cover;
