@@ -8,8 +8,7 @@
     alt="自由飞翔个人头像"
     class="about-avatar"
     width="120"
-    height="120"
-  >
+    height="120">
 
   <div class="about-label">ABOUT ME</div>
 
