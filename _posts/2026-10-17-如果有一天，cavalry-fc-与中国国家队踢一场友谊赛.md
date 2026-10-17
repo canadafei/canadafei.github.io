@@ -1,5 +1,5 @@
 ---
-title: 如果有一天，Cavalry FC 与中国国家队踢一场友谊赛
+title: 如果有一天，加拿大职业足球队Cavalry FC 与中国国家队踢一场友谊赛
 date: 2026-10-17T16:08:00.000-06:00
 ---
 ![](/images/9pvtzm-6k1c4ckf3yrij-geku4vyonmtkjnc-62mbi6wqdckgx-bxgy63rwrjbpi4lt1r7jlcssfnwpw7cw0ow2safbafugsrobiwzzadzszprnr3mj-3m8slrln1kwbzk3mcjxokbrizm_xry4mz4aruycgkilcybe2frzq1ok.jpg)
