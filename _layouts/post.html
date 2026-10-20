@@ -3,32 +3,392 @@
 layout: default
 ---
 
-<article class="post h-entry" itemscope itemtype="https://schema.org/BlogPosting">
+<article class="post h-entry article-page"
+         itemscope
+         itemtype="https://schema.org/BlogPosting">
 
-  <header class="post-header">
+  <header class="article-header">
 
-    <h1 class="post-title p-name" itemprop="name headline">
+    <div class="article-category">个人随笔 · 生活记录</div>
+
+    <h1 class="article-title p-name"
+        itemprop="name headline">
       {{ page.title | escape }}
     </h1>
 
-    {% include share-buttons.html %}
-
-    <p class="post-meta">
+    <div class="article-meta">
       <time class="dt-published"
             datetime="{{ page.date | date_to_xmlschema }}"
             itemprop="datePublished">
-        {{ page.date | date: "%Y-%m-%d %H:%M" }}
+        <span class="meta-label">发布时间</span>
+        {{ page.date | date: "%Y年%m月%d日 %H:%M" }}
       </time>
-    </p>
+
+      {% if page.author %}
+      <span class="article-author">
+        <span class="meta-divider">·</span>
+        {{ page.author | escape }}
+      </span>
+      {% endif %}
+    </div>
+
+    <div class="article-share-area">
+      {% include share-buttons.html %}
+    </div>
 
   </header>
 
-  <div class="post-content e-content" itemprop="articleBody">
+  {% if page.image %}
+  <figure class="article-cover">
+    <img src="{{ page.image | relative_url }}"
+         alt="{{ page.title | escape }}"
+         loading="eager">
+  </figure>
+  {% endif %}
+
+  <div class="post-content e-content article-content"
+       itemprop="articleBody">
     {{ content }}
   </div>
+
+  <footer class="article-end">
+    <div class="article-end-line"></div>
+    <p class="article-end-brand">自由飞翔</p>
+    <p class="article-end-description">
+      在加拿大生活，在北美行走
+    </p>
+  </footer>
 
   <a class="u-url"
      href="{{ page.url | relative_url }}"
      hidden></a>
 
 </article>
+
+<style>
+/* ========================================
+   文章页面整体
+======================================== */
+
+.article-page {
+  max-width: 100%;
+  margin: 0 auto;
+  color: #30343b;
+}
+
+/* ========================================
+   标题区域
+======================================== */
+
+.article-header {
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 46px 24px 24px;
+}
+
+.article-category {
+  margin-bottom: 18px;
+  color: #8a8174;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+.article-title {
+  margin: 0;
+  color: #20242a;
+  font-size: 36px;
+  font-weight: 750;
+  line-height: 1.5;
+  letter-spacing: .2px;
+  overflow-wrap: anywhere;
+}
+
+.article-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+  color: #888;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.meta-label {
+  margin-right: 5px;
+  color: #999;
+}
+
+.meta-divider {
+  margin: 0 5px;
+  color: #bbb;
+}
+
+/* ========================================
+   分享按钮区域
+======================================== */
+
+.article-share-area {
+  margin-top: 18px;
+}
+
+.article-share-area .article-share {
+  margin: 0;
+  padding: 15px 0;
+  border-top: 1px solid #eeeeee;
+  border-bottom: 1px solid #eeeeee;
+}
+
+/* ========================================
+   文章封面
+   在文章 Front Matter 中设置 image 才显示
+======================================== */
+
+.article-cover {
+  max-width: 1000px;
+  margin: 10px auto 35px;
+  padding: 0 24px;
+}
+
+.article-cover img {
+  display: block;
+  width: 100%;
+  max-height: 540px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* ========================================
+   正文阅读区域
+======================================== */
+
+.article-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 10px 24px 30px;
+  color: #333;
+  font-size: 17px;
+  line-height: 2;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.article-content p {
+  margin: 0 0 25px;
+}
+
+.article-content h2 {
+  margin: 48px 0 22px;
+  padding-left: 15px;
+  border-left: 4px solid #444;
+  color: #222;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.article-content h3 {
+  margin: 36px 0 18px;
+  color: #292929;
+  font-size: 21px;
+  font-weight: 650;
+  line-height: 1.6;
+}
+
+.article-content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 28px auto;
+  border-radius: 7px;
+}
+
+.article-content figure {
+  margin: 28px 0;
+}
+
+.article-content figcaption {
+  margin-top: 10px;
+  color: #888;
+  font-size: 13px;
+  line-height: 1.7;
+  text-align: center;
+}
+
+.article-content blockquote {
+  margin: 28px 0;
+  padding: 18px 24px;
+  border-left: 4px solid #c9c2b7;
+  background: #f7f6f3;
+  color: #555;
+}
+
+.article-content blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.article-content ul,
+.article-content ol {
+  margin: 0 0 25px;
+  padding-left: 28px;
+}
+
+.article-content li {
+  margin-bottom: 8px;
+}
+
+.article-content a {
+  color: #2468a0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.article-content pre {
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 18px;
+  border: 1px solid #e7e7e7;
+  border-radius: 7px;
+  background: #f7f7f7;
+}
+
+.article-content table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+}
+
+.article-content th,
+.article-content td {
+  padding: 10px 13px;
+  border: 1px solid #e5e5e5;
+}
+
+/* ========================================
+   文章结束签名
+======================================== */
+
+.article-end {
+  max-width: 800px;
+  margin: 20px auto 30px;
+  padding: 25px 24px 45px;
+  text-align: center;
+}
+
+.article-end-line {
+  width: 46px;
+  height: 2px;
+  margin: 0 auto 20px;
+  background: #c8c0b4;
+}
+
+.article-end-brand {
+  margin: 0 0 7px;
+  color: #333;
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.article-end-description {
+  margin: 0;
+  color: #999;
+  font-size: 13px;
+  letter-spacing: .5px;
+}
+
+/* ========================================
+   平板与手机
+======================================== */
+
+@media screen and (max-width: 700px) {
+  .article-header {
+    padding: 30px 19px 18px;
+  }
+
+  .article-category {
+    margin-bottom: 12px;
+    font-size: 11px;
+  }
+
+  .article-title {
+    font-size: 28px;
+    line-height: 1.55;
+  }
+
+  .article-meta {
+    margin-top: 14px;
+    font-size: 12px;
+  }
+
+  .article-share-area {
+    margin-top: 14px;
+  }
+
+  .article-cover {
+    margin: 8px auto 25px;
+    padding: 0 16px;
+  }
+
+  .article-cover img {
+    max-height: 360px;
+    border-radius: 7px;
+  }
+
+  .article-content {
+    padding: 5px 19px 20px;
+    font-size: 16px;
+    line-height: 1.95;
+  }
+
+  .article-content p {
+    margin-bottom: 22px;
+  }
+
+  .article-content h2 {
+    margin-top: 38px;
+    margin-bottom: 18px;
+    font-size: 23px;
+  }
+
+  .article-content h3 {
+    margin-top: 30px;
+    font-size: 19px;
+  }
+
+  .article-end {
+    padding: 20px 19px 35px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .article-header {
+    padding: 24px 15px 16px;
+  }
+
+  .article-title {
+    font-size: 25px;
+  }
+
+  .article-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 15.5px;
+    line-height: 1.9;
+  }
+
+  .article-content h2 {
+    font-size: 21px;
+  }
+
+  .article-content h3 {
+    font-size: 18px;
+  }
+
+  .article-cover {
+    padding: 0 12px;
+  }
+}
+</style>
