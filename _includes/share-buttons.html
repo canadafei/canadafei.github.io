@@ -1,0 +1,110 @@
+
+{% assign share_url = page.url | absolute_url %}
+{% assign share_title = page.title | url_encode %}
+{% assign encoded_url = share_url | url_encode %}
+
+<div class="article-share">
+  <span class="share-label">分享文章</span>
+
+  <a class="share-btn share-wechat"
+     href="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data={{ encoded_url }}"
+     target="_blank"
+     rel="noopener noreferrer"
+     title="打开文章二维码，用微信扫一扫">
+    微信
+  </a>
+
+  <a class="share-btn share-weibo"
+     href="https://service.weibo.com/share/share.php?url={{ encoded_url }}&title={{ share_title }}"
+     target="_blank"
+     rel="noopener noreferrer">
+    微博
+  </a>
+
+  <a class="share-btn share-qq"
+     href="https://connect.qq.com/widget/shareqq/index.html?url={{ encoded_url }}&title={{ share_title }}"
+     target="_blank"
+     rel="noopener noreferrer">
+    QQ
+  </a>
+
+  <button class="share-btn share-copy"
+          type="button"
+          onclick="navigator.clipboard.writeText({{ share_url | jsonify }}).then(function(){alert('文章链接已复制');}).catch(function(){prompt('请复制文章链接：', {{ share_url | jsonify }});})">
+    复制链接
+  </button>
+</div>
+
+<style>
+.article-share {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 0 24px;
+  padding: 14px 0;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+
+.share-label {
+  margin-right: 4px;
+  color: #777;
+  font-size: 13px;
+}
+
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 0 15px;
+  border: 0;
+  border-radius: 5px;
+  color: #fff !important;
+  font-size: 13px;
+  line-height: 1.4;
+  text-decoration: none !important;
+  cursor: pointer;
+  transition: opacity .2s ease;
+}
+
+.share-btn:hover {
+  opacity: .85;
+  color: #fff !important;
+}
+
+.share-wechat {
+  background: #07c160;
+}
+
+.share-weibo {
+  background: #e6162d;
+}
+
+.share-qq {
+  background: #1686e8;
+}
+
+.share-copy {
+  background: #666;
+  font-family: inherit;
+}
+
+@media screen and (max-width: 500px) {
+  .article-share {
+    gap: 8px;
+    margin: 14px 0 20px;
+  }
+
+  .share-label {
+    width: 100%;
+    margin-bottom: 2px;
+  }
+
+  .share-btn {
+    min-height: 36px;
+    padding: 0 13px;
+  }
+}
+</style>
